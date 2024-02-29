@@ -1,4 +1,4 @@
 return {
-  Changelog #1 - February 29th 2024
-    - Added Options
+  "Changelog #1 - February 29th 2024",
+  " - Added Options"
 }
