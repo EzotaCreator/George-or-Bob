@@ -8,9 +8,10 @@
 
 
 Changelog #3 - 6th March 2024
- - Added Crash Selector + Autofill
+ - Added Crash Selector
  - Added Crash
  - Added Get Country
+ - Added FPS Check
 
 Changelog #2 - 2nd March 2024
  - Fixed visual bugs
