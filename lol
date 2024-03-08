@@ -19,6 +19,7 @@ Changelog #3 - 6th March 2024
  - Added FPS Check
  - Moved Shutdown > Options
  - Improved Lag Server
+ - Added Time Stop
  - (WIP) Clientside Execute
 
 Changelog #2 - 2nd March 2024
