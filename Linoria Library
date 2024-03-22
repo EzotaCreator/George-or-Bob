@@ -1,0 +1,300 @@
+Create UI
+
+local repo = 'https://raw.githubusercontent.com/violin-suzutsuki/LinoriaLib/main/'
+
+local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
+local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
+local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
+
+local Window = Library:CreateWindow({
+    Title = 'Example menu',
+    Center = true,
+    AutoShow = true,
+    TabPadding = 8,
+    MenuFadeTime = 0.2
+})
+
+
+| Create Tabs
+
+local Tabs = {
+    Main = Window:AddTab('Main'),
+    ['UI Settings'] = Window:AddTab('UI Settings'),
+}
+
+
+| Create LeftGroupBox
+
+local LeftGroupBox = Tabs.Main:AddLeftGroupbox('Groupbox Left')
+
+
+Create RightGroupBox
+
+local RightGroupBox = Tabs.Main:AddRightGroupbox('Groupbox Side')
+
+
+| Create Toggle
+
+-- Groupbox:AddToggle
+-- Arguments: Index, Options
+LeftGroupBox:AddToggle('MyToggle', {
+    Text = 'This is a toggle',
+    Default = true,
+    Tooltip = 'This is a tooltip',
+    Callback = function(Value)
+        print('[cb] MyToggle changed to:', Value)
+    end
+})
+
+
+| Check Toggle
+
+Toggles.MyToggle:OnChanged(function()
+    print('MyToggle changed to:', Toggles.MyToggle.Value)
+end)
+
+
+| Set Toggle
+
+Toggles.MyToggle:SetValue(false)
+
+
+| Add Button
+
+local MyButton = LeftGroupBox:AddButton({
+    Text = 'Button',
+    Func = function()
+        print('You clicked a button!')
+    end,
+    DoubleClick = false,
+    Tooltip = 'This is the main button'
+})
+
+
+| Add Sub Button
+
+local MyButton2 = MyButton:AddButton({
+    Text = 'Sub button',
+    Func = function()
+        print('You clicked a sub button!')
+    end,
+    DoubleClick = true,
+    Tooltip = 'This is the sub button (double click me!)'
+})
+
+
+| Add TextLabel
+
+-- Arguments: Text, DoesWrap
+LeftGroupBox:AddLabel('This is a label')
+LeftGroupBox:AddLabel('This is a label\n\nwhich wraps its text!', true)
+
+
+| Add Multi Dropdown
+
+LeftGroupBox:AddDropdown('MyMultiDropdown', {
+    Values = { 'This', 'is', 'a', 'dropdown' },
+    Default = 1,
+    Multi = true,
+
+    Text = 'A dropdown',
+    Tooltip = 'This is a tooltip',
+
+    Callback = function(Value)
+        print('[cb] Multi dropdown got changed:', Value)
+    end
+})
+
+
+| Check Multi Dropdown
+
+Options.MyMultiDropdown:OnChanged(function()
+    print('Multi dropdown got changed:')
+    for key, value in next, Options.MyMultiDropdown.Value do
+        print(key, value)
+    end
+end)
+
+
+| Set Multi Dropdown
+
+Options.MyMultiDropdown:SetValue({
+    This = true,
+    is = true,
+})
+
+
+| Add Player Dropdown
+
+LeftGroupBox:AddDropdown('MyPlayerDropdown', {
+    SpecialType = 'Player',
+    Text = 'A player dropdown',
+    Tooltip = 'This is a tooltip',
+
+    Callback = function(Value)
+        print('[cb] Player dropdown got changed:', Value)
+    end
+})
+
+
+| Add ColorPicker
+
+LeftGroupBox:AddLabel('Color'):AddColorPicker('ColorPicker', {
+    Default = Color3.new(0, 1, 0),
+    Title = 'Some color',
+    Transparency = 0,
+
+    Callback = function(Value)
+        print('[cb] Color changed!', Value)
+    end
+})
+
+
+| Check ColorPicker
+
+Options.ColorPicker:OnChanged(function()
+    print('Color changed!', Options.ColorPicker.Value)
+    print('Transparency changed!', Options.ColorPicker.Transparency)
+end)
+
+
+| Set ColorPicker
+
+Options.ColorPicker:SetValueRGB(Color3.fromRGB(0, 255, 140))
+
+
+| Add Keybind
+
+LeftGroupBox:AddLabel('Keybind'):AddKeyPicker('KeyPicker', {
+    Default = 'MB2',
+    SyncToggleState = false,
+    Mode = 'Toggle', -- Modes: Always, Toggle, Hold
+
+    Text = 'Auto lockpick safes',
+    NoUI = false,
+    Callback = function(Value)
+        print('[cb] Keybind clicked!', Value)
+    end,
+
+    ChangedCallback = function(New)
+        print('[cb] Keybind changed!', New)
+    end
+})
+
+
+| Check Keybind
+
+Options.KeyPicker:OnClick(function()
+    print('Keybind clicked!', Options.KeyPicker:GetState())
+end)
+
+Options.KeyPicker:OnChanged(function()
+    print('Keybind changed!', Options.KeyPicker.Value)
+end)
+
+
+| Check Keybind held
+
+task.spawn(function()
+    while true do
+        wait(1)
+
+        local state = Options.KeyPicker:GetState()
+        if state then
+            print('KeyPicker is being held down')
+        end
+
+        if Library.Unloaded then break end
+    end
+end)
+
+
+| Set Keybind
+
+Options.KeyPicker:SetValue({ 'MB2', 'Toggle' }) -- Sets keybind to MB2, mode to Hold
+
+
+| Add RightTabbox
+
+local TabBox = Tabs.Main:AddRightTabbox()
+
+
+| Add Tabs
+
+local Tab1 = TabBox:AddTab('Tab 1')
+local Tab2 = TabBox:AddTab('Tab 2')
+
+
+| Add DependencyBox
+
+local RightGroupbox = Tabs.Main:AddRightGroupbox('Groupbox #3');
+RightGroupbox:AddToggle('ControlToggle', { Text = 'Dependency box toggle' });
+
+local Depbox = RightGroupbox:AddDependencyBox();
+Depbox:AddToggle('DepboxToggle', { Text = 'Sub-dependency box toggle' });
+
+
+| Set Dependencies for DependencyBox
+
+Depbox:SetupDependencies({
+    { Toggles.ControlToggle, true } -- We can also pass `false` if we only want our features to show when the toggle is off!
+});
+
+| Add Watermark
+
+Library:SetWatermark("Hello there!")
+Library:SetWatermarkVisibility(true)
+
+
+| Remove Watermark
+
+WatermarkConnection:Disconnect()
+
+
+| Check UI Unloading
+
+Library:OnUnload(function()
+    print('Unloaded!')
+    Library.Unloaded = true
+end)
+
+
+| Unload UI
+
+MenuGroup:AddButton('Unload', function() Library:Unload() end)
+MenuGroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'End', NoUI = true, Text = 'Menu keybind' })
+
+
+| Addons
+
+-- SaveManager (Allows you to have a configuration system)
+-- ThemeManager (Allows you to have a menu theme system)
+
+-- Hand the library over to our managers
+ThemeManager:SetLibrary(Library)
+SaveManager:SetLibrary(Library)
+
+-- Ignore keys that are used by ThemeManager.
+-- (we dont want configs to save themes, do we?)
+SaveManager:IgnoreThemeSettings()
+
+-- Adds our MenuKeybind to the ignore list
+-- (do you want each config to have a different menu key? probably not.)
+SaveManager:SetIgnoreIndexes({ 'MenuKeybind' })
+
+-- use case for doing it this way:
+-- a script hub could have themes in a global folder
+-- and game configs in a separate folder per game
+ThemeManager:SetFolder('MyScriptHub')
+SaveManager:SetFolder('MyScriptHub/specific-game')
+
+-- Builds our config menu on the right side of our tab
+SaveManager:BuildConfigSection(Tabs['UI Settings'])
+
+-- Builds our theme menu (with plenty of built in themes) on the left side
+-- NOTE: you can also call ThemeManager:ApplyToGroupbox to add it to a specific groupbox
+ThemeManager:ApplyToTab(Tabs['UI Settings'])
+
+-- You can use the SaveManager:LoadAutoloadConfig() to load a config
+-- which has been marked to be one that auto loads!
+SaveManager:LoadAutoloadConfig()
