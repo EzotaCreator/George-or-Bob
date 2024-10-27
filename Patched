@@ -69,7 +69,7 @@ task.spawn(function()
         ShoTime.Text = "Alive"
         local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
         local data = {
-              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Sho",
+              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Sho\n<@639562271445483537>",
         }
         local newdata = HttpService:JSONEncode(data)
         local headers = {
@@ -92,7 +92,7 @@ task.spawn(function()
         ShoTime.Text = "Alive"
         local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
         local data = {
-              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Sho",
+              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Sho\n<@639562271445483537>",
         }
         local newdata = HttpService:JSONEncode(data)
         local headers = {
@@ -112,7 +112,7 @@ task.spawn(function()
         BurnsTime.Text = "Alive"
         local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
         local data = {
-              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Captain Burns Boss",
+              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Captain Burns Boss\n<@639562271445483537>",
         }
         local newdata = HttpService:JSONEncode(data)
         local headers = {
@@ -135,7 +135,7 @@ task.spawn(function()
         BurnsTime.Text = "Alive"
         local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
         local data = {
-              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Captain Burns Boss",
+              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Captain Burns Boss\n<@639562271445483537>",
         }
         local newdata = HttpService:JSONEncode(data)
         local headers = {
@@ -155,7 +155,7 @@ task.spawn(function()
         InfernalTime.Text = "Alive"
         local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
         local data = {
-              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Vengeful Infernal Demon",
+              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Vengeful Infernal Demon\n<@639562271445483537>",
         }
         local newdata = HttpService:JSONEncode(data)
         local headers = {
@@ -178,7 +178,7 @@ task.spawn(function()
         InfernalTime.Text = "Alive"
         local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
         local data = {
-              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Vengeful Infernal Demon",
+              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Vengeful Infernal Demon\n<@639562271445483537>",
         }
         local newdata = HttpService:JSONEncode(data)
         local headers = {
