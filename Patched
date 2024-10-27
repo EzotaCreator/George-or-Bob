@@ -1,5 +1,6 @@
 local Work = cloneref(game:GetService("Workspace"))
 local CoreGui = cloneref(game:GetService("CoreGui"))
+local HttpService = cloneref(game:GetService("HttpService"))
 
 -- GUI
 
