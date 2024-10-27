@@ -66,6 +66,17 @@ task.spawn(function()
     if not ShoTimerDisable then
         repeat task.wait() until Work.Alive:FindFirstChild("ShoNPC")
         ShoTime.Text = "Alive"
+        local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
+        local data = {
+              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Sho",
+        }
+        local newdata = HttpService:JSONEncode(data)
+        local headers = {
+              ["content-type"] = "application/json"
+        }
+        request = http_request or request or HttpPost or syn.request
+        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+        request(abcdef)
         repeat task.wait() until not Work.Alive:FindFirstChild("ShoNPC")
         
         ShoTime.Text = "Dead"  
@@ -78,6 +89,17 @@ task.spawn(function()
         repeat task.wait() until Work.Alive:FindFirstChild("ShoNPC")
         ShoTimerDisable = false
         ShoTime.Text = "Alive"
+        local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
+        local data = {
+              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Sho",
+        }
+        local newdata = HttpService:JSONEncode(data)
+        local headers = {
+              ["content-type"] = "application/json"
+        }
+        request = http_request or request or HttpPost or syn.request
+        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+        request(abcdef)
     end
   end
 end)
@@ -87,6 +109,17 @@ task.spawn(function()
     if not BurnsTimerDisable then
         repeat task.wait() until Work.Alive:FindFirstChild("CaptainBurnsBoss")
         BurnsTime.Text = "Alive"
+        local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
+        local data = {
+              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Captain Burns Boss",
+        }
+        local newdata = HttpService:JSONEncode(data)
+        local headers = {
+              ["content-type"] = "application/json"
+        }
+        request = http_request or request or HttpPost or syn.request
+        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+        request(abcdef)
         repeat task.wait() until not Work.Alive:FindFirstChild("CaptainBurnsBoss")
         
         BurnsTime.Text = "Dead"  
@@ -99,6 +132,17 @@ task.spawn(function()
         repeat task.wait() until Work.Alive:FindFirstChild("CaptainBurnsBoss")
         BurnsTimerDisable = false
         BurnsTime.Text = "Alive"
+        local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
+        local data = {
+              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Captain Burns Boss",
+        }
+        local newdata = HttpService:JSONEncode(data)
+        local headers = {
+              ["content-type"] = "application/json"
+        }
+        request = http_request or request or HttpPost or syn.request
+        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+        request(abcdef)
     end
   end
 end)
@@ -108,6 +152,17 @@ task.spawn(function()
     if not InfernalTimerDisable then
         repeat task.wait() until Work.Alive:FindFirstChild("VengefulInfernalDemon")
         InfernalTime.Text = "Alive"
+        local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
+        local data = {
+              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Vengeful Infernal Demon",
+        }
+        local newdata = HttpService:JSONEncode(data)
+        local headers = {
+              ["content-type"] = "application/json"
+        }
+        request = http_request or request or HttpPost or syn.request
+        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+        request(abcdef)
         repeat task.wait() until not Work.Alive:FindFirstChild("VengefulInfernalDemon")
         
         InfernalTime.Text = "Dead"  
@@ -120,6 +175,17 @@ task.spawn(function()
         repeat task.wait() until Work.Alive:FindFirstChild("VengefulInfernalDemon")
         InfernalTimerDisable = false
         InfernalTime.Text = "Alive"
+        local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
+        local data = {
+              ["content"] = "Profile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Vengeful Infernal Demon",
+        }
+        local newdata = HttpService:JSONEncode(data)
+        local headers = {
+              ["content-type"] = "application/json"
+        }
+        request = http_request or request or HttpPost or syn.request
+        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+        request(abcdef)
     end
   end
 end)
