@@ -27,7 +27,11 @@ ShoTime.BorderSizePixel = 0
 if not Work.Alive:FindFirstChild("ShoNPC") then
     ShoTime.Text = "Dead"
 else
-    ShoTime.Text = "Alive"
+      if Work.Alive:FindFirstChild("ShoNPC"):FindFirstChild("BossAugmentName")
+            ShoTime.Text = "Alive | Augment: Yes; "..Work.Alive:FindFirstChild("ShoNPC"):FindFirstChild("BossAugmentName").Value
+      else 
+            ShoTime.Text = "Alive | Augment: No"
+      end
 end
 ShoTime.TextSize = 10
 
@@ -42,7 +46,11 @@ BurnsTime.BorderSizePixel = 0
 if not Work.Alive:FindFirstChild("CaptainBurnsBoss") then
     BurnsTime.Text = "Dead"
 else
-    BurnsTime.Text = "Alive"
+      if Work.Alive:FindFirstChild("CaptainBurnsBoss"):FindFirstChild("BossAugmentName")
+            BurnsTime.Text = "Alive | Augment: Yes; "..Work.Alive:FindFirstChild("CaptainBurnsBoss"):FindFirstChild("BossAugmentName").Value
+      else 
+            BurnsTime.Text = "Alive | Augment: No"
+      end
 end
 BurnsTime.TextSize = 10
 
@@ -55,9 +63,13 @@ local InfernalTime = Instance.new("TextLabel",Bosses)
 InfernalTime.Size = UDim2.new(0,200,0,20)
 InfernalTime.BorderSizePixel = 0
 if not Work.Alive:FindFirstChild("VengefulInfernalDemon") then
-    InfernalTime.Text = "Dead"
+      InfernalTime.Text = "Dead"
 else
-    InfernalTime.Text = "Alive"
+      if Work.Alive:FindFirstChild("VengefulInfernalDemon"):FindFirstChild("BossAugmentName")
+            InfernalTime.Text = "Alive | Augment: Yes; "..Work.Alive:FindFirstChild("VengefulInfernalDemon"):FindFirstChild("BossAugmentName").Value
+      else 
+            InfernalTime.Text = "Alive | Augment: No"
+      end
 end
 InfernalTime.TextSize = 10
 
@@ -68,10 +80,10 @@ task.spawn(function()
             if not ShoTimerDisable then
                   repeat task.wait() until Work.Alive:FindFirstChild("ShoNPC")
                   ShoTime.Text = "Alive"
-                  if Work.Alive.ShoNPC.BossAugmentName then
+                  if Work.Alive:FindFirstChild("ShoNPC"):FindFirstChild("BossAugmentName") then
                         local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
                         local data = {
-                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Sho\nAugment: Yes, "..Work.Alive.ShoNPC.BossAugmentName.Value,
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Sho\nAugment: Yes, "..Work.Alive.ShoNPC:FindFirstChild("BossAugmentName").Value,
                         }
                         local newdata = HttpService:JSONEncode(data)
                         local headers = {
@@ -105,10 +117,10 @@ task.spawn(function()
                   repeat task.wait() until Work.Alive:FindFirstChild("ShoNPC")
                   ShoTimerDisable = false
                   ShoTime.Text = "Alive"
-                  if Work.Alive.ShoNPC.BossAugmentName then
+                  if Work.Alive:FindFirstChild("ShoNPC"):FindFirstChild("BossAugmentName") then
                         local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
                         local data = {
-                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Sho\nAugment: Yes, "..Work.Alive.ShoNPC.BossAugmentName.Value,
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Sho\nAugment: Yes, "..Work.Alive.ShoNPC:FindFirstChild("BossAugmentName").Value,
                         }
                         local newdata = HttpService:JSONEncode(data)
                         local headers = {
@@ -139,10 +151,10 @@ task.spawn(function()
             if not BurnsTimerDisable then
                   repeat task.wait() until Work.Alive:FindFirstChild("CaptainBurnsBoss")
                   BurnsTime.Text = "Alive"
-                  if Work.Alive.CaptainBurnsBoss.BossAugmentName then
+                  if Work.Alive:FindFirstChild("CaptainBurnsBoss"):FindFirstChild("BossAugmentName") then
                         local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
                         local data = {
-                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Captain Burns\nAugment: Yes, "..Work.Alive.CaptainBurnsBoss.BossAugmentName.Value,
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Captain Burns\nAugment: Yes, "..Work.Alive.CaptainBurnsBoss:FindFirstChild("BossAugmentName").Value,
                         }
                         local newdata = HttpService:JSONEncode(data)
                         local headers = {
@@ -176,10 +188,10 @@ task.spawn(function()
                   repeat task.wait() until Work.Alive:FindFirstChild("CaptainBurnsBoss")
                   BurnsTimerDisable = false
                   BurnsTime.Text = "Alive"
-                  if Work.Alive.CaptainBurnsBoss.BossAugmentName then
+                  if Work.Alive:FindFirstChild("CaptainBurnsBoss"):FindFirstChild("BossAugmentName") then
                         local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
                         local data = {
-                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Captain Burns\nAugment: Yes, "..Work.Alive.CaptainBurnsBoss.BossAugmentName.Value,
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Captain Burns\nAugment: Yes, "..Work.Alive.CaptainBurnsBoss:FindFirstChild("BossAugmentName").Value,
                         }
                         local newdata = HttpService:JSONEncode(data)
                         local headers = {
@@ -210,10 +222,10 @@ task.spawn(function()
             if not InfernalTimerDisable then
                   repeat task.wait() until Work.Alive:FindFirstChild("VengefulInfernalDemon")
                   InfernalTime.Text = "Alive"
-                  if Work.Alive.VengefulInfernalDemon.BossAugmentName then
+                  if Work.Alive:FindFirstChild("VengefulInfernalDemon"):FindFirstChild("BossAugmentName") then
                         local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
                         local data = {
-                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Vengeful Infernal\nAugment: Yes, "..Work.Alive.VengefulInfernalDemon.BossAugmentName.Value,
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Vengeful Infernal\nAugment: Yes, "..Work.Alive.VengefulInfernalDemon:FindFirstChild("BossAugmentName").Value,
                         }
                         local newdata = HttpService:JSONEncode(data)
                         local headers = {
@@ -247,10 +259,10 @@ task.spawn(function()
                   repeat task.wait() until Work.Alive:FindFirstChild("VengefulInfernalDemon")
                   InfernalTimerDisable = false
                   InfernalTime.Text = "Alive"
-                  if Work.Alive.VengefulInfernalDemon.BossAugmentName then
+                  if Work.Alive:FindFirstChild("VengefulInfernalDemon"):FindFirstChild("BossAugmentName") then
                         local url = "https://discord.com/api/webhooks/1300043825007558706/6cP4-J8yDSWYrMLPFPX0CmQKvTtvMG9JkvWPc4dgRhO9VOny-rVohQ5wFMefVR5gOgYT"
                         local data = {
-                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Vengeful Infernal\nAugment: Yes, "..Work.Alive.VengefulInfernalDemon.BossAugmentName.Value,
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Vengeful Infernal\nAugment: Yes, "..Work.Alive.VengefulInfernalDemon:FindFirstChild("BossAugmentName").Value,
                         }
                         local newdata = HttpService:JSONEncode(data)
                         local headers = {
