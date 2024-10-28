@@ -28,7 +28,7 @@ ShoTime.BorderSizePixel = 0
 if not Work.Alive:FindFirstChild("ShoNPC") then
     ShoTime.Text = "Dead"
 else
-      if Work.Alive:FindFirstChild("ShoNPC"):FindFirstChild("BossAugmentName")
+      if Work.Alive:FindFirstChild("ShoNPC"):FindFirstChild("BossAugmentName") then
             ShoTime.Text = "Alive | Augment: Yes; "..Work.Alive:FindFirstChild("ShoNPC"):FindFirstChild("BossAugmentName").Value
       else 
             ShoTime.Text = "Alive | Augment: No"
@@ -47,7 +47,7 @@ BurnsTime.BorderSizePixel = 0
 if not Work.Alive:FindFirstChild("CaptainBurnsBoss") then
     BurnsTime.Text = "Dead"
 else
-      if Work.Alive:FindFirstChild("CaptainBurnsBoss"):FindFirstChild("BossAugmentName")
+      if Work.Alive:FindFirstChild("CaptainBurnsBoss"):FindFirstChild("BossAugmentName") then
             BurnsTime.Text = "Alive | Augment: Yes; "..Work.Alive:FindFirstChild("CaptainBurnsBoss"):FindFirstChild("BossAugmentName").Value
       else 
             BurnsTime.Text = "Alive | Augment: No"
@@ -66,7 +66,7 @@ InfernalTime.BorderSizePixel = 0
 if not Work.Alive:FindFirstChild("VengefulInfernalDemon") then
       InfernalTime.Text = "Dead"
 else
-      if Work.Alive:FindFirstChild("VengefulInfernalDemon"):FindFirstChild("BossAugmentName")
+      if Work.Alive:FindFirstChild("VengefulInfernalDemon"):FindFirstChild("BossAugmentName") then
             InfernalTime.Text = "Alive | Augment: Yes; "..Work.Alive:FindFirstChild("VengefulInfernalDemon"):FindFirstChild("BossAugmentName").Value
       else 
             InfernalTime.Text = "Alive | Augment: No"
