@@ -13,6 +13,7 @@ BossesGUI.Parent = CoreGui
 local Bosses = Instance.new("Frame",BossesGUI)
 Bosses.Name = "Bosses"
 Bosses.Size = UDim2.new(0,200,0,150)
+Bosses.Position = UDim2.new(0,100,0,100)
 
 local Layout = Instance.new("UIListLayout",Bosses)
 
