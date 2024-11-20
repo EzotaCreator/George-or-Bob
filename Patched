@@ -7,7 +7,6 @@ local ReplicatedStorage = cloneref(game:GetService("ReplicatedStorage"))
 
 local BossesGUI = Instance.new("ScreenGui",nil)
 BossesGUI.Name = "BossesGUI"
-syn.protect_gui(BossesGUI)
 BossesGUI.Parent = CoreGui
 
 local Bosses = Instance.new("Frame",BossesGUI)
