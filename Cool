@@ -1,0 +1,295 @@
+local SGui = Instance.new("ScreenGui",cloneref(game:GetService("CoreGui")))
+SGui.Name = "C00lKidd GUI"
+SGui.ResetOnSpawn = false
+
+local Frame = Instance.new("Frame",SGui)
+Frame.Name = "MainFrame"
+Frame.Size = UDim2.new(0,200,0,325)
+Frame.Position = UDim2.new(0.5,0,0.5,0)
+Frame.BorderSizePixel = 3
+Frame.BackgroundColor3 = Color3.fromRGB(125,0,0)
+local List = Instance.new("UIListLayout",Frame)
+List.SortOrder = "LayoutOrder"
+
+local PlaceHolder = Instance.new("TextLabel",Frame)
+PlaceHolder.Name = "Placeholder"
+PlaceHolder.Text = ""
+PlaceHolder.Size = UDim2.new(0,0,0,25)
+PlaceHolder.BackgroundTransparency = 1
+
+local InfIemCode = Instance.new("TextLabel",Frame)
+InfIemCode.Name = "InfItemCode"
+InfIemCode.Text = infitemcode or "nil"
+InfIemCode.Size = UDim2.new(0,200,0,25)
+InfIemCode.BorderSizePixel = 3
+InfIemCode.BackgroundColor3 = Color3.fromRGB(125,0,0)
+task.spawn(function()
+    repeat task.wait() until infitemcode
+    InfIemCode.Text = infitemcode
+    InfIemCode.TextColor3 = Color3.fromRGB(0,255,0)
+end)
+
+material = "stone"
+local InfItemSelector = Instance.new("TextButton",Frame)
+InfItemSelector.Name = "InfItemSelector"
+InfItemSelector.Text = "Generate Item: Stone"
+InfItemSelector.Size = UDim2.new(0,200,0,25)
+InfItemSelector.BorderSizePixel = 3
+InfItemSelector.BackgroundColor3 = Color3.fromRGB(125,0,0)
+InfItemSelector.MouseButton1Click:Connect(function()
+    if string.find(InfItemSelector.Text,"Stone") then
+        InfItemSelector.Text = "Generate Item: Coal"
+        material = "coal"
+    elseif string.find(InfItemSelector.Text,"Coal") then
+        InfItemSelector.Text = "Generate Item: Iron"
+        material = "ore"
+    elseif string.find(InfItemSelector.Text,"Iron") then
+        InfItemSelector.Text = "Generate Item: Stone"
+        material = "stone"
+    end
+end)
+
+local InfItemSpawner = Instance.new("TextButton",Frame)
+InfItemSpawner.Name = "InfItemSpawner"
+InfItemSpawner.Text = "Generate Item"
+InfItemSpawner.Size = UDim2.new(0,200,0,25)
+InfItemSpawner.BorderSizePixel = 3
+InfItemSpawner.BackgroundColor3 = Color3.fromRGB(125,0,0)
+InfItemSpawner.MouseButton1Click:Connect(function()
+    if infitemcode then
+        local args = {
+            [1] = material.."1",
+            [2] = infitemcode
+        }
+    
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("ItemDestroy"):FireServer(unpack(args))
+    end
+    
+    if not infitemcode then
+        local mt = getrawmetatable(game)
+        setreadonly(mt, false)
+        local oldNamecall = mt.__namecall
+        mt.__namecall = newcclosure(function(self, ...)
+            local method = getnamecallmethod()
+            local args = {...}
+            if method == "FireServer" and tostring(self) == "ItemDestroy" and not infitemcode then
+                for i, v in pairs(args) do
+                    if i == 2 then
+                        getgenv().infitemcode = tostring(v)
+                    end
+                end
+            end
+            return oldNamecall(self, ...)
+        end)
+        setreadonly(mt, true)
+
+        local args = {
+            [1] = material.."1",
+            [2] = CFrame.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position),
+            [3] = 1,
+            [4] = 1
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("CreateItem"):FireServer(unpack(args))
+        local coalitem = game:GetService("Workspace").Items:WaitForChild(material):WaitForChild("motor")
+        coalitem.Parent.Part.CanCollide = false
+        coalitem.CanCollide = false
+        repeat 
+            task.wait()
+            coalitem.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
+        until not coalitem
+    end
+end)
+
+local SpawnSurvivor = Instance.new("TextButton",Frame)
+SpawnSurvivor.Name = "Spawn Survivor"
+SpawnSurvivor.Text = "Spawn Survivor (+1 Skull)"
+SpawnSurvivor.Size = UDim2.new(0,200,0,25)
+SpawnSurvivor.BorderSizePixel = 3
+SpawnSurvivor.BackgroundColor3 = Color3.fromRGB(125,0,0)
+SpawnSurvivor.MouseButton1Click:Connect(function()
+    local args = {
+        [1] = "Survivors"
+    }
+    game:GetService("Players").LocalPlayer:FindFirstChild("ConsoleClick",true):FireServer(unpack(args))
+end)
+
+local RoundMoney = Instance.new("TextButton",Frame)
+RoundMoney.Name = [[150 Money]]
+RoundMoney.Text = [[150 Money (+1 Skull)]]
+RoundMoney.Size = UDim2.new(0,200,0,25)
+RoundMoney.BorderSizePixel = 3
+RoundMoney.BackgroundColor3 = Color3.fromRGB(125,0,0)
+RoundMoney.MouseButton1Click:Connect(function()
+    local args = {
+        [1] = "Money"
+    }
+    game:GetService("Players").LocalPlayer:FindFirstChild("ConsoleClick",true):FireServer(unpack(args))
+end)
+
+local InvincibleBasePlace = Instance.new("TextButton",Frame)
+InvincibleBasePlace.Name = "Invincible Base"
+InvincibleBasePlace.Text = "Invincible Base Placement"
+InvincibleBasePlace.Size = UDim2.new(0,200,0,25)
+InvincibleBasePlace.BorderSizePixel = 3
+InvincibleBasePlace.BackgroundColor3 = Color3.fromRGB(125,0,0)
+InvincibleBasePlace.MouseButton1Click:Connect(function()
+    local args = {
+        [1] = CFrame.new(910.5, -211.5, -448.5, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PlaceBase"):FireServer(unpack(args))
+end)
+local InvincibleSelf = Instance.new("TextButton",Frame)
+InvincibleSelf.Name = "Invincible Self"
+InvincibleSelf.Text = "Godmode"
+InvincibleSelf.Size = UDim2.new(0,200,0,25)
+InvincibleSelf.BorderSizePixel = 3
+InvincibleSelf.BackgroundColor3 = Color3.fromRGB(125,0,0)
+InvincibleSelf.MouseButton1Click:Connect(function()
+    local args = {
+        [1] = game:GetService("Players").LocalPlayer.Character.Humanoid,
+        [2] = 0/0
+    }
+    
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DeliverDamage"):FireServer(unpack(args))
+end)
+
+local InvincibleSurvivors = Instance.new("TextButton",Frame)
+InvincibleSurvivors.Name = "Invincible Survivors"
+InvincibleSurvivors.Text = "Godmode Survivors"
+InvincibleSurvivors.Size = UDim2.new(0,200,0,25)
+InvincibleSurvivors.BorderSizePixel = 3
+InvincibleSurvivors.BackgroundColor3 = Color3.fromRGB(125,0,0)
+InvincibleSurvivors.MouseButton1Click:Connect(function()
+    for i,v in pairs(workspace.Humans:GetChildren()) do
+        local args = {
+            [1] = v:FindFirstChild("Humanoid",true),
+            [2] = 0/0
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DeliverDamage"):FireServer(unpack(args))
+    end
+end)
+
+local InvincibleAll = Instance.new("TextButton",Frame)
+InvincibleAll.Name = "Invincible All"
+InvincibleAll.Text = "Godmode All"
+InvincibleAll.Size = UDim2.new(0,200,0,25)
+InvincibleAll.BorderSizePixel = 3
+InvincibleAll.BackgroundColor3 = Color3.fromRGB(125,0,0)
+InvincibleAll.MouseButton1Click:Connect(function()
+    for i,v in pairs(game:GetService("Players"):GetChildren()) do
+        local args = {
+            [1] = v.Character.Humanoid,
+            [2] = 0/0
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DeliverDamage"):FireServer(unpack(args))
+    end
+end)
+
+local HealOthers = Instance.new("TextButton",Frame)
+HealOthers.Name = "HealAll"
+HealOthers.Text = "Heal All"
+HealOthers.Size = UDim2.new(0,200,0,25)
+HealOthers.BorderSizePixel = 3
+HealOthers.BackgroundColor3 = Color3.fromRGB(125,0,0)
+HealOthers.MouseButton1Click:Connect(function()
+    for i,v in pairs(game:GetService("Players"):GetChildren()) do
+        local args = {
+            [1] = v.Character.Humanoid,
+            [2] = -math.huge
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DeliverDamage"):FireServer(unpack(args))
+    end
+end)
+
+local KillOthers = Instance.new("TextButton",Frame)
+KillOthers.Name = "KillOthers"
+KillOthers.Text = "Kill Others"
+KillOthers.Size = UDim2.new(0,200,0,25)
+KillOthers.BorderSizePixel = 3
+KillOthers.BackgroundColor3 = Color3.fromRGB(125,0,0)
+KillOthers.MouseButton1Click:Connect(function()
+    for i,v in pairs(game:GetService("Players"):GetChildren()) do
+        if v ~= game.Players.LocalPlayer then
+            local args = {
+                [1] = v.Character.Humanoid,
+                [2] = math.huge
+            }
+            
+            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DeliverDamage"):FireServer(unpack(args))
+        end
+    end
+end)
+
+local KillZombies = Instance.new("TextButton",Frame)
+KillZombies.Name = "KillZombies"
+KillZombies.Text = "Kill Zombies"
+KillZombies.Size = UDim2.new(0,200,0,25)
+KillZombies.BorderSizePixel = 3
+KillZombies.BackgroundColor3 = Color3.fromRGB(125,0,0)
+KillZombies.MouseButton1Click:Connect(function()
+    for i,v in pairs(workspace.WaveZombies:GetChildren()) do
+        local args = {
+            [1] = v:FindFirstChild("Humanoid",true),
+            [2] = math.huge
+        }
+    
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DeliverDamage"):FireServer(unpack(args))
+    end
+    for i,v in pairs(workspace.MapZombies:GetChildren()) do
+        local args = {
+            [1] = v:FindFirstChild("Humanoid",true),
+            [2] = math.huge
+        }
+    
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DeliverDamage"):FireServer(unpack(args))
+    end
+end)
+
+local SpawnerGUI = Instance.new("TextButton",Frame)
+SpawnerGUI.Name = "SpawnerGUI"
+SpawnerGUI.Text = "Show SpawnerGUI"
+SpawnerGUI.Size = UDim2.new(0,200,0,25)
+SpawnerGUI.BorderSizePixel = 3
+SpawnerGUI.BackgroundColor3 = Color3.fromRGB(125,0,0)
+SpawnerGUI.MouseButton1Click:Connect(function()
+    game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Cheats.Visible = true
+    game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.Cheats.Cheats.Visible = true
+end)
+
+local function makeDraggable(frame)
+    local dragging = false
+    local dragInput, mousePos, framePos
+
+    frame.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            mousePos = input.Position
+            framePos = frame.Position
+
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    frame.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement then
+            dragInput = input
+        end
+    end)
+
+    game:GetService("UserInputService").InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            local delta = input.Position - mousePos
+            frame.Position = UDim2.new(framePos.X.Scale, framePos.X.Offset + delta.X, framePos.Y.Scale, framePos.Y.Offset + delta.Y)
+        end
+    end)
+end
+makeDraggable(Frame)
