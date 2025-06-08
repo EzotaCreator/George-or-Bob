@@ -90,8 +90,8 @@ InfItemSpawner.MouseButton1Click:Connect(function()
             [4] = 1
         }
         
-        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("CreateItem"):FireServer(unpack(args))
-        local coalitem = game:GetService("Workspace").Items:WaitForChild(material):WaitForChild("motor")
+        game:GetService("ReplicatedStorage"):FindFirstChild("Events"):FindFirstChild("CreateItem"):FireServer(unpack(args))
+        local coalitem = game:GetService("Workspace").Items:FindFirstChild(material):FindFirstChild("motor")
         coalitem.Parent.Part.CanCollide = false
         coalitem.CanCollide = false
         repeat 
